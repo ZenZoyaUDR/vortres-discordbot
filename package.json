@@ -1,0 +1,19 @@
+{
+  "name": "starite-bot",
+  "version": "1.0.0",
+  "description": "Discord Bot",
+  "main": "src/index.js",
+  "scripts": {
+    "start:dev": "nodemon ./src/index.js",
+    "cmdreg": "node ./src/registerCommands.js"
+  },
+  "author": "ZenZoyaUDR",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
