@@ -45,13 +45,13 @@ client.color = require('./helpers/colorHelper');
     console.info(`Starite |> Started refreshing ${commands.length} application (/) commands`);
 
     const data = await rest.put(
-      Routes.applicationGuildCommands(BOT_ID, "1059087765788180541"),
+      Routes.applicationCommands(BOT_ID),
       { body: commands },
     );
 
     console.info(`Starite |> Successfully reloaded ${data.length} application (/) commands`);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error('\n\nAn error has occured:\n', err, '\n\n');
   }
 
 

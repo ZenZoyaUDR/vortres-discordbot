@@ -1,11 +1,10 @@
 {
-  "name": "starite-bot",
+  "name": "vortres-dcbot",
   "version": "1.0.0",
   "description": "Discord Bot",
   "main": "src/index.js",
   "scripts": {
-    "start:dev": "nodemon ./src/index.js",
-    "cmdreg": "node ./src/registerCommands.js"
+    "start:dev": "nodemon ./src/index.js"
   },
   "author": "ZenZoyaUDR",
   "license": "ISC",
