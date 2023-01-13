@@ -23,7 +23,7 @@ const client = new Client({
   }
 });
 
-// Handler
+// Helpers
 client.color = require('./helpers/colorHelper');
 
 (async () => {
@@ -76,7 +76,7 @@ client.color = require('./helpers/colorHelper');
     try {
       await command.execute(interaction, client);
     } catch (err) {
-      console.error('\n\nAn error has occured:\n', err);
+      console.error('\n\nAn error has occured:\n', err, '\n\n');
       let slashError = {
         description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
         color: client.color.fail,
