@@ -13,14 +13,7 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
-  ],
-  presence: {
-    status: 'online',
-    activities: [{
-      name: '/help For Help',
-      type: 'PLAYING'
-    }]
-  }
+  ]
 });
 
 // Helpers
@@ -54,7 +47,6 @@ client.color = require('./helpers/colorHelper');
     console.error('\n\nAn error has occured:\n', err, '\n\n');
   }
 
-
   // Commands Handler
   client.commands = new Collection();
   const commandsPath = path.join(__dirname, 'commands');
@@ -72,7 +64,6 @@ client.color = require('./helpers/colorHelper');
     const command = client.commands.get(interaction.commandName);
 
     if (!command) return;
-
     try {
       await command.execute(interaction, client);
     } catch (err) {
@@ -86,8 +77,9 @@ client.color = require('./helpers/colorHelper');
   });
 
   // Logging-in bot
-  console.info('Starite |> Authenticating with Discord');
   await client.login(BOT_TOKEN);
-  console.info(`Starite |> Logged-in as ${client.user.tag}`);
-  console.info('Starite |> Completed Discord authentication');
+  client.on('ready', () => {
+    console.info(`\n\nStarite |> Logging-in as ${client.user.tag}`);
+  });
+
 })();
