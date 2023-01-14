@@ -1,21 +1,32 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-     data: new SlashCommandBuilder()
-          .setName('pruge')
-          .setDescription('Purge all messages')
-          .addIntegerOption(option => option.setName('amount').setDescription('Number of messages to purge')),
-     async execute(interaction) {
-          const amount = interaction.options.getInteger('amount');
+  data: new SlashCommandBuilder()
+    .setName('pruge')
+    .setDescription('Delete the last X amount of messages')
+    .addNumberOption(opt => opt.setName('amount').setDescription('Amount of messages to delete').setRequired(true)),
+  async execute(interaction, client) {
+    const amount = interaction.options.getInteger('amount');
 
-          if (amount < 1 || amount > 99) {
-               return interaction.reply({ content: 'You need to input a number between 1 and 99.', ephemeral: true });
-          }
-          await interaction.channel.bulkDelete(amount, true).catch(error => {
-               console.error(error);
-               interaction.reply({ content: 'There was an error trying to prune messages in this channel!', ephemeral: true });
-          });
-
-          return interaction.reply({ content: `Successfully pruned \`${amount}\` messages.`, ephemeral: true });
-     },
+    if (amount < 1 || amount > 99) {
+      let cmdFormatError = {
+        description: `You only can delete \`1 to 99\` messages at a time.`,
+        color: client.color.fail,
+      }
+      return interaction.reply({ embeds: [cmdFormatError], ephemeral: true });
+    }
+    await interaction.channel.bulkDelete(amount, true).catch(err => {
+      console.error('\n\nAn error has occured:\n', err, '\n\n');
+      let cmdError = {
+        description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
+        color: client.color.fail,
+      }
+      return interaction.reply({ embeds: [cmdError], ephemeral: true });
+    });
+    let cmdSuc = {
+      description: `Successfully purge \`${amount}\` messages.`,
+      color: client.color.fail,
+    }
+    return interaction.reply({ embeds: [cmdSuc] });
+  },
 };
