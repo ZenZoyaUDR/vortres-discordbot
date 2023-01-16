@@ -10,7 +10,7 @@ module.exports = {
         .setDescription('Amount of messages to delete')
         .setRequired(true)
         .setMinValue(1)
-        .setMaxValue(99)
+        .setMaxValue(100)
     ),
   async execute(interaction, client) {
     const amount = interaction.options.getInteger('amount');
