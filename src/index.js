@@ -70,7 +70,7 @@ client.color = require('./helpers/colorHelper');
       console.error('\n\nAn error has occured:\n', err, '\n\n');
       let slashError = {
         description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
-        color: client.color.fail,
+        color: client.color.red,
       }
       await interaction.reply({ embeds: [slashError], ephemeral: true });
     }
