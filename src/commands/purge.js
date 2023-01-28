@@ -2,8 +2,8 @@ const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('pruge')
-    .setDescription('Delete the last X amount of messages')
+    .setName('purge')
+    .setDescription('Delete messages in the channel')
     .addIntegerOption(option =>
       option
         .setName('amount')
