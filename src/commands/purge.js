@@ -13,12 +13,12 @@ module.exports = {
         .setMaxValue(100)
     ),
   async execute(interaction, client) {
+    const amount = interaction.options.getInteger('amount');
     let cmdLoading = {
       description: `<a:loading:1069476742571511860> Loading...`,
       color: client.color.yellow,
     }
     return interaction.reply({ embeds: [cmdLoading] });
-    const amount = interaction.options.getInteger('amount');
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
       await interaction.channel.bulkDelete(amount, true).catch(err => {
