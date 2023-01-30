@@ -13,6 +13,11 @@ module.exports = {
         .setMaxValue(100)
     ),
   async execute(interaction, client) {
+    let cmdLoading = {
+      description: `<a:loading:1069476742571511860> Loading...`,
+      color: client.color.yellow,
+    }
+    return interaction.reply({ embeds: [cmdLoading] });
     const amount = interaction.options.getInteger('amount');
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
@@ -22,19 +27,19 @@ module.exports = {
           description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
           color: client.color.red,
         }
-        return interaction.reply({ embeds: [cmdError], ephemeral: true });
+        return interaction.update({ embeds: [cmdError], ephemeral: true });
       });
       let cmdSuc = {
         description: `Successfully purge \`${amount}\` messages.`,
         color: client.color.blue,
       }
-      return interaction.reply({ embeds: [cmdSuc] });
+      return interaction.update({ embeds: [cmdSuc] });
     } else {
       let cmdSuc = {
         description: `You need to have permission \`MANAGE_MESSAGES\` to use this command.`,
         color: client.color.yellow,
       }
-      return interaction.reply({ embeds: [cmdSuc] });
+      return interaction.update({ embeds: [cmdSuc] });
     }
   }
 };
