@@ -18,12 +18,12 @@ module.exports = {
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
       await interaction.channel.bulkDelete(amount, true).catch(err => {
-        console.log('\n\nAn error has occured:\n', err);
         let cmdError = {
           description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
           color: client.color.red,
         }
-        return interaction.reply({ embeds: [cmdError], ephemeral: true });
+        interaction.reply({ embeds: [cmdError], ephemeral: true });
+        console.info('\n\nAn error has occured:\n', err);
       });
       let cmdSuc = {
         description: `Successfully purge \`${amount}\` messages.`,
