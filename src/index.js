@@ -44,7 +44,7 @@ client.color = require('./helpers/colorHelper');
 
     console.info(`Starite |> Successfully reloaded ${data.length} application (/) commands`);
   } catch (err) {
-    console.error('\n\nAn error has occured:\n', err, '\n\n');
+    console.log('\n\nAn error has occured:\n', err);
   }
 
   // Commands Handler
@@ -67,7 +67,7 @@ client.color = require('./helpers/colorHelper');
     try {
       await command.execute(interaction, client);
     } catch (err) {
-      console.error('\n\nAn error has occured:\n', err, '\n\n');
+      console.log('\n\nAn error has occured:\n', err);
       let slashError = {
         description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
         color: client.color.red,
