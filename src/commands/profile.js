@@ -19,7 +19,7 @@ module.exports = {
     const canvas = createCanvas(700, 250);
     const context = canvas.getContext('2d');
 
-    const background = await readFile('../../../wallpaper.jpg');
+    const background = await readFile('./wallpaper.jpg');
     const backgroundImage = new Image();
     backgroundImage.src = background;
     context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
