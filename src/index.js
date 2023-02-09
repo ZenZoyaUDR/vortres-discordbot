@@ -21,7 +21,7 @@ client.color = require('./helpers/colorHelper');
 
 (async () => {
   console.clear();
-  console.info("Starite |> Starting...");
+  console.info("|> Starting bot...");
 
   // Registering Slash commands
   const commands = [];
@@ -35,14 +35,14 @@ client.color = require('./helpers/colorHelper');
   const rest = new REST({ version: '10' }).setToken(BOT_TOKEN);
 
   try {
-    console.info(`Starite |> Started refreshing ${commands.length} application (/) commands`);
+    console.info(`|> Started refreshing ${commands.length} application (/) commands`);
 
     const data = await rest.put(
       Routes.applicationCommands(BOT_ID),
       { body: commands },
     );
 
-    console.info(`Starite |> Successfully reloaded ${data.length} application (/) commands`);
+    console.info(`|> Successfully reloaded ${data.length} application (/) commands`);
   } catch (err) {
     console.info('\n\nAn error has occured:\n', err);
   }
@@ -77,8 +77,8 @@ client.color = require('./helpers/colorHelper');
   });
 
   // Logging-in bot
-  console.info('Starite |> Authenticating with Discord');
+  console.info('|> Authenticating with Discord');
   await client.login(BOT_TOKEN);
-  console.info(`Starite |> Logged-in as ${client.user.tag}`);
-  console.info('Starite |> Completed Discord authentication');
+  console.info(`|> Logged-in as ${client.user.tag}`);
+  console.info('|> Completed Discord authentication');
 })();
