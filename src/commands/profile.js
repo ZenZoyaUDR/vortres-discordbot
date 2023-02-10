@@ -1,6 +1,7 @@
 const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
 const { createCanvas, Image } = require('@napi-rs/canvas');
 const { readFile } = require('fs/promises');
+const { request } = require('undici');
 
 const applyText = (canvas, text) => {
   const context = canvas.getContext('2d');
@@ -16,10 +17,11 @@ module.exports = {
     .setName('profile')
     .setDescription('See your profile'),
   async execute(interaction, client) {
+    await interaction.reply({ content: '<a:loading:1069476742571511860> Generating...', fetchReply: true });
     const canvas = createCanvas(700, 250);
     const context = canvas.getContext('2d');
 
-    const background = await readFile('./image/wallpaper.jpg');
+    const background = await readFile('./wallpaper.jpg');
     const backgroundImage = new Image();
     backgroundImage.src = background;
     context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
@@ -47,6 +49,6 @@ module.exports = {
 
     const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: 'profile-image.png' });
 
-    interaction.reply({ files: [attachment] });
+    interaction.editReply({ content: '', files: [attachment] });
   },
 };
