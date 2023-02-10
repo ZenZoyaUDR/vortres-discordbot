@@ -1,4 +1,4 @@
-const { AttachmentBuilder, Client, Events, SlashCommandBuilder } = require('discord.js');
+const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
 const { createCanvas, Image } = require('@napi-rs/canvas');
 const { readFile } = require('fs/promises');
 
@@ -19,7 +19,7 @@ module.exports = {
     const canvas = createCanvas(700, 250);
     const context = canvas.getContext('2d');
 
-    const background = await readFile('./wallpaper.jpg');
+    const background = await readFile('./image/wallpaper.jpg');
     const backgroundImage = new Image();
     backgroundImage.src = background;
     context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
