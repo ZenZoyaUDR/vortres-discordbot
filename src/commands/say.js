@@ -6,20 +6,20 @@ module.exports = {
     .setDescription('Say someting as a bot')
     .addStringOption(option =>
       option.setName('msg')
-      .setDescription('The masaage to say')
-      .setRequired(true));
+        .setDescription('The masaage to say')
+        .setRequired(true))
     .addChannelOption(option =>
       option.setName('channel')
-      .setDescription('The channel to say into')
-      .setRequired(true));
-    ),
+        .setDescription('The channel to say into')
+        .setRequired(true)),
 
   async execute(interaction, client) {
     const msg = interaction.options.getString('msg');
     const channel = interaction.options.getChannel('channel');
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-      return channel.reply({ content: `${msg}` });
+      channel.send({ content: `${msg}` });
+      return interaction.reply({ content: 'The massage has been send', ephemeral: true })
     } else {
       let cmdDeny = {
         description: `You need to have permission \`MANAGE_MESSAGES\` to use this command.`,
