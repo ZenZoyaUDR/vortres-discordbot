@@ -56,7 +56,7 @@ global.player = new Player(
 
     console.info(`|> Successfully reloaded ${data.length} application (/) commands`);
   } catch (err) {
-    console.info('\n\nAn error has occured:\n', err);
+    console.info(`\n\nAn error has occured:\n ${err}\n\n`);
   }
 
   // Commands Handler
@@ -84,7 +84,7 @@ global.player = new Player(
         color: client.color.red,
       }
       await interaction.reply({ embeds: [slashError], ephemeral: true });
-      console.info('\n\nAn error has occured:\n', err);
+      console.info(`\n\nAn error has occured:\n ${err}\n\n`);
     }
   });
 
