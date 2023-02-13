@@ -15,7 +15,7 @@ module.exports = {
           ),
      async execute(interaction, client) {
           const query = interaction.options.getString('query');
-          await interaction.deferReply();
+          await interaction.reply({ content: '<a:loading:1069476742571511860> Loading...', fetchReply: true });
           const res = await player.search(query, {
                requestedBy: interaction.member,
                searchEngine: QueryType.AUTO
