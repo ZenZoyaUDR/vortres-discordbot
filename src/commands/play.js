@@ -4,13 +4,16 @@ const { QueryType } = require("discord-player");
 module.exports = {
      data: new SlashCommandBuilder()
           .setName('play')
-          .setDescription("loads songs from youtube")
+          .setDescription('Play music from YouTube, and Spotify')
           .addSubcommand((subcommand) =>
                subcommand
                     .setName("search")
-                    .setDescription("Searches for sogn based on provided keywords")
+                    .setDescription('Searches for song based on provided keywords or with a link')
                     .addStringOption((option) =>
-                         option.setName('query').setDescription("the search keywords").setRequired(true)
+                         option
+                         .setName('query')
+                         .setDescription("keywords or link")
+                         .setRequired(true)
                     )
           ),
      async execute(interaction, client) {
@@ -21,7 +24,7 @@ module.exports = {
                searchEngine: QueryType.AUTO
           });
 
-          if (!res || !res.tracks.length) return interaction.editReply({ content: `No results found ${interaction.member}... try again ? ❌`, ephemeral: true });
+          if (!res || !res.tracks.length) return interaction.editReply({ content: `No results found... Try again?`, ephemeral: true });
 
           const queue = await player.createQueue(interaction.guild, {
                metadata: interaction.channel,
@@ -34,10 +37,10 @@ module.exports = {
                if (!queue.connection) await queue.connect(interaction.member.voice.channel);
           } catch {
                await player.deleteQueue(interaction.guildId);
-               return interaction.editReply({ content: `I can't join the voice channel ${interaction.member}... try again ? ❌`, ephemeral: true });
+               return interaction.editReply({ content: `I can't join the voice channel... Try again?`, ephemeral: true });
           }
 
-          await interaction.editReply({ content: `Loading your ${res.playlist ? 'playlist' : 'track'}... 🎧` });
+          await interaction.editReply({ content: `🎧 Loading your ${res.playlist ? 'playlist' : 'track'}...` });
 
           res.playlist ? queue.addTracks(res.tracks) : queue.addTrack(res.tracks[0]);
 
