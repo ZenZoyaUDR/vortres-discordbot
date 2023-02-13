@@ -5,20 +5,15 @@ module.exports = {
      data: new SlashCommandBuilder()
           .setName('play')
           .setDescription('Play music from YouTube, and Spotify')
-          .addSubcommand((subcommand) =>
-               subcommand
-                    .setName("search")
-                    .setDescription('Searches for song based on provided keywords or with a link')
-                    .addStringOption((option) =>
-                         option
-                         .setName('query')
-                         .setDescription("keywords or link")
-                         .setRequired(true)
-                    )
+          .addStringOption(option =>
+               option.setName('query')
+                    .setDescription('The keywords or link of the song')
+                    .setRequired(true)
           ),
+
      async execute(interaction, client) {
           const query = interaction.options.getString('query');
-          await interaction.reply({ content: '<a:loading:1069476742571511860> Loading...', fetchReply: true });
+          await interaction.deferReply();
           const res = await player.search(query, {
                requestedBy: interaction.member,
                searchEngine: QueryType.AUTO
@@ -46,4 +41,4 @@ module.exports = {
 
           if (!queue.playing) await queue.play();
      },
-}
+};

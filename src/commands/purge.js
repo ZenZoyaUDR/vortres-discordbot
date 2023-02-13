@@ -23,7 +23,7 @@ module.exports = {
           color: client.color.red,
         }
         interaction.reply({ embeds: [cmdError], ephemeral: true });
-        console.info('\n\nAn error has occured:\n', err);
+        console.info(`\n\nAn error has occured:\n${err}\n\n`);
       });
       let cmdSuc = {
         description: `Successfully purge \`${amount}\` messages.`,

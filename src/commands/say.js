@@ -5,16 +5,17 @@ module.exports = {
     .setName('say')
     .setDescription('Say someting as a bot')
     .addStringOption(option =>
-      option.setName('msg')
+      option.setName('message')
         .setDescription('The masaage to say')
         .setRequired(true))
     .addChannelOption(option =>
       option.setName('channel')
         .setDescription('The channel to say into')
-        .setRequired(true)),
+        .setRequired(true)
+    ),
 
   async execute(interaction, client) {
-    const msg = interaction.options.getString('msg');
+    const msg = interaction.options.getString('message');
     const channel = interaction.options.getChannel('channel');
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {

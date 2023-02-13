@@ -22,14 +22,13 @@ const client = new Client({
 client.color = require('./helpers/colorHelper');
 
 // Music Player
-client.player = new Player(
+global.player = new Player(
   client, {
-    ytdlOptions: {
-      quality: "highestaudio",
-      highWaterMark: 1 << 25
-    }
+  ytdlOptions: {
+    quality: "highestaudio",
+    highWaterMark: 1 << 25
+  }
 });
-const player = client.player;
 
 (async () => {
   console.clear();
