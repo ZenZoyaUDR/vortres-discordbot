@@ -18,8 +18,8 @@ module.exports = {
         }
 
         let TsEmbed = {
-            title: ``,
-            description: `**Timestamp**:\n${progress}`
+            description: `**Timestamp**:\n${progress}`,
+            color: client.color.yellow
         }
         interaction.reply({ embeds: [TsEmbed] });
     },
