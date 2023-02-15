@@ -3,10 +3,10 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('leave')
-        .setDescription(Disconnect from VC and stop the music'),
+        .setDescription('Disconnect from VC and stop the music'),
 
     async execute(interaction, client) {
-        const queue = client.player.getQueue(interaction.guild.id);
+        const queue = player.getQueue(interaction.guild.id);
 
         if (!queue || !queue.playing) {
             let NoMusic = {
