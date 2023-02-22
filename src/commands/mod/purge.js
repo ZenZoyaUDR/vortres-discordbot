@@ -12,24 +12,46 @@ module.exports = {
         .setMinValue(1)
         .setMaxValue(100)
     ),
+    .addUserOption(option =>
+      option
+        .setName('user')
+        .setDescription('Delete messages from pesific user')
+    ),
 
   async execute(interaction, client) {
-    const amount = interaction.options.getInteger('amount');
+    const { channel, options } = interaction;
+
+    const amount = options.getInteger('amount');
+    const user = options.getUser('user');
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-      await interaction.channel.bulkDelete(amount, true).catch(err => {
-        let cmdError = {
-          description: `There was an error while executing this command!\n\n**Error:**\n\`\`\`${err}\`\`\``,
-          color: client.color.red,
-        }
-        interaction.reply({ embeds: [cmdError], ephemeral: true });
-        console.info(`\n\nAn error has occured:\n${err}\n\n`);
-      });
-      let cmdSuc = {
-        description: `Successfully purge \`${amount}\` messages.`,
-        color: client.color.blue,
+      const messages = await channel.messages.fetch({ limit: amount +1 });
+      if(user) {
+          let i = 0;
+          const filtered = [];
+
+          (await messages).filter((msg) => {
+              if(msg.author.id = user.id && amount > i) {
+                  filtered.push(msg);
+                  i++;
+              }
+          });
+          await channel.bulkDelete(filtered).then(mesaages => {
+            let cmdMsg = {
+                description: `Successfully purge \`${messages.size}\` messages from \`${user}\`.`,
+                color: client.color.blue,
+            }
+            interaction.reply({ embeds: [cmdMsg] });
+          });
+      } else {
+          await channel.bulkDelete(amount, true).then(mesaages => {
+            let cmdMsg = {
+                description: `Successfully purge \`${messages.size}\` messages from the channel.`,
+                color: client.color.blue,
+            }
+            interaction.reply({ embeds: [cmdMsg] });
+          });
       }
-      return interaction.reply({ embeds: [cmdSuc] });
     } else {
       let cmdDeny = {
         description: `You need to have permission \`MANAGE_MESSAGES\` to use this command.`,
