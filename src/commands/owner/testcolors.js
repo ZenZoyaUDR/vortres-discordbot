@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction, client) {
         let Embed1 = {
             description: `1`,
-            color: client.color.main
+            color: client.color.invis
         }
         let Embed2 = {
             description: `2`,
