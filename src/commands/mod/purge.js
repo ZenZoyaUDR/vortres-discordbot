@@ -11,7 +11,7 @@ module.exports = {
         .setRequired(true)
         .setMinValue(1)
         .setMaxValue(100)
-    ),
+    )
     .addUserOption(option =>
       option
         .setName('user')
@@ -25,7 +25,7 @@ module.exports = {
     const user = options.getUser('user');
 
     if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-      const messages = await channel.messages.fetch({ limit: amount +1 });
+      const messages = await channel.messages.fetch({ limit: amount });
       if(user) {
           let i = 0;
           const filtered = [];
@@ -38,7 +38,7 @@ module.exports = {
           });
           await channel.bulkDelete(filtered).then(mesaages => {
             let cmdMsg = {
-                description: `Successfully purge \`${messages.size}\` messages from \`${user}\`.`,
+                description: `Successfully purge \`${messages.size}\` messages from \`${user.tag}\`.`,
                 color: client.color.blue,
             }
             interaction.reply({ embeds: [cmdMsg] });
