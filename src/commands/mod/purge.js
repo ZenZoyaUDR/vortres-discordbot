@@ -24,34 +24,17 @@ module.exports = {
     const amount = options.getInteger('amount');
     const user = options.getUser('user');
 
-    if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-      const messages = await channel.messages.fetch({ limit: amount });
-      if(user) {
-          let i = 0;
-          const filtered = [];
+    if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)
+      || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
 
-          (await messages).filter((msg) => {
-              if(msg.author.id = user.id && amount > i) {
-                  filtered.push(msg);
-                  i++;
-              }
-          });
-          await channel.bulkDelete(filtered).then(mesaages => {
-            let cmdMsg = {
-                description: `Successfully purge \`${messages.size}\` messages from \`${user.tag}\`.`,
-                color: client.color.blue,
-            }
-            interaction.reply({ embeds: [cmdMsg] });
-          });
-      } else {
-          await channel.bulkDelete(amount, true).then(mesaages => {
-            let cmdMsg = {
-                description: `Successfully purge \`${messages.size}\` messages from the channel.`,
-                color: client.color.blue,
-            }
-            interaction.reply({ embeds: [cmdMsg] });
-          });
-      }
+      await channel.bulkDelete(amount, true).then(messages => {
+        let cmdMsg = {
+          description: `Successfully purge \`${messages.size}\` messages from the channel`,
+          color: client.color.blue,
+        }
+        interaction.reply({ embeds: [cmdMsg] });
+      });
+
     } else {
       let cmdDeny = {
         description: `You need to have permission \`MANAGE_MESSAGES\` to use this command.`,
