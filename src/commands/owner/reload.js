@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { QueueRepeatMode }
+const { loadEvents } = require('../../handler/eventHandler');
+const { loadCommands } = require('../../handler/commandHandler');
 
 module.exports = {
      data: new SlashCommandBuilder()
