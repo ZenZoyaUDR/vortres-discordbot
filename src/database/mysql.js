@@ -1,4 +1,5 @@
 const mysql = require('mysql2');
+const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
 //create the pool connection using environment variables for values
 const pool = mysql.createPool({
@@ -13,7 +14,7 @@ const pool = mysql.createPool({
   password: DB_PASSWORD,
   //Name of the database to use for this connection (Optional).
   database: DB_DATABASE,
-  
+
   // The following configuration options have been pre-set to allow for ease of use.
   // **Do NOT modify unless you know what you are doing.**
 

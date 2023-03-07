@@ -1,12 +1,12 @@
 // Import
 require('dotenv').config();
-const { Player } = require("discord-player");
+const { Player } = require('discord-player');
 const { loadEvents } = require('./handler/eventHandler');
 const { loadCommands } = require('./handler/commandHandler');
 const { Client, GatewayIntentBits, Collection, Events, REST, Routes } = require('discord.js');
 
 // Env
-const { BOT_TOKEN, BOT_ID } = process.env;
+const { BOT_TOKEN } = process.env;
 
 // Client
 const client = new Client({
