@@ -4,15 +4,15 @@ const mysql = require('mysql2');
 const pool = mysql.createPool({
   // Database connection details:
   //The hostname of the database you are connecting to. (Default: localhost)
-  host: process.env.HOST,
+  host: DB_HOST,
   //port: 3306, //unused for PlanetScale
   //localAddress: The source IP address to use for TCP connection. (Optional)
   //The MySQL user to authenticate as.
-  user: process.env.USERNAME,
+  user: DB_USERNAME,
   //The password of that MySQL user.
-  password: process.env.PASSWORD,
+  password: DB_PASSWORD,
   //Name of the database to use for this connection (Optional).
-  database: process.env.DATABASE,
+  database: DB_DATABASE,
   
   // The following configuration options have been pre-set to allow for ease of use.
   // **Do NOT modify unless you know what you are doing.**
