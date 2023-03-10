@@ -1,5 +1,5 @@
 const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
-const { createCanvas, Image } = require('@napi-rs/canvas');
+const { createCanvas, Image } = require('canvas');
 const { readFile } = require('fs/promises');
 const { request } = require('undici');
 
