@@ -17,7 +17,7 @@
     "dotenv": "^16.0.3",
     "ffmpeg-static": "^5.1.0",
     "mysql2": "^3.2.0",
-    "undici": "^5.19.1"
+    "undici": "^5.20.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
