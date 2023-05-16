@@ -16,7 +16,7 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "ffmpeg-static": "^5.1.0",
-    "mysql2": "^3.2.1",
+    "mysql2": "^3.2.3",
     "undici": "^5.19.1"
   },
   "devDependencies": {
