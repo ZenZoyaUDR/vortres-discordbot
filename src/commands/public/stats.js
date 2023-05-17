@@ -1,8 +1,5 @@
+const { SlashCommandBuilder } = require('discord.js');
 const sql = require('../../database/mysql.js');
-const { AttachmentBuilder, SlashCommandBuilder } = require('discord.js');
-const { createCanvas, Image } = require('canvas');
-const { readFile } = require('fs/promises');
-const { request } = require('undici');
 
 module.exports = {
      data: new SlashCommandBuilder()
