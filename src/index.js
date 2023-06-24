@@ -1,9 +1,8 @@
 // Import
-require('dotenv').config();
-const { Player } = require('discord-player');
-const { loadEvents } = require('./handler/eventHandler');
-const { loadCommands } = require('./handler/commandHandler');
-const { Client, GatewayIntentBits, Collection, Events, REST, Routes } = require('discord.js');
+require("dotenv").config();
+const { loadEvents } = require("./handler/eventHandler");
+const { loadCommands } = require("./handler/commandHandler");
+const { Client, GatewayIntentBits, Collection } = require("discord.js");
 
 // Env
 const { BOT_TOKEN } = process.env;
@@ -14,27 +13,16 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildVoiceStates
-  ]
+  ],
 });
 client.commands = new Collection();
 
 // Helpers
-client.color = require('./helpers/colorHelper');
-
-// Music Player
-global.player = new Player(
-  client, {
-  ytdlOptions: {
-    quality: "highestaudio",
-    highWaterMark: 1 << 25
-  }
-});
-
+client.color = require("./helpers/colorHelper");
 
 client.login(BOT_TOKEN).then(() => {
   console.clear();
-  console.info('|> Starting...');
+  console.info("|> Starting...");
 
   // Run functions
   loadEvents(client);
