@@ -2,7 +2,7 @@
 // so please remove the '#' in your hex color
 module.exports = {
   invis: 0x2f3136,
-  blue: 0x2953f3,
-  red: 0xff3333,
-  yellow: 0xffff64
-}
+  blue: 0x2045db,
+  red: 0xf01831,
+  yellow: 0xffff64,
+};

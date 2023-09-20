@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id       Int    @id @default(autoincrement())
+  username String @db.VarChar(16)
+  level    Int
+  exp      Int
+  maxExp   Int
+}

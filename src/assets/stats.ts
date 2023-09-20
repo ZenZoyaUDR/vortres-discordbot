@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+import { SlashCommandBuilder } from "discord.js";
 const sql = require("../../database/mysql.js");
 
 module.exports = {
@@ -17,7 +17,6 @@ module.exports = {
     if (player.includes("*")) {
       var skin = "Zenoffire";
     } else {
-      var skin = player;
     }
     await interaction.reply({
       content: "<a:loading:1069476742571511860> Fetching...",

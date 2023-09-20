@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
+import {
+  SlashCommandBuilder,
+  PermissionsBitField,
+  ChannelType,
+} from "discord.js";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -7,17 +11,20 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("message")
-        .setDescription("The masaage to say")
+        .setDescription("The message to say")
         .setRequired(true)
     )
     .addChannelOption((option) =>
       option
         .setName("channel")
-        .setDescription("The channel to say into")
+        .setDescription("The channel to echo into")
+        // Ensure the user can only select a TextChannel for output
+        .addChannelTypes(ChannelType.GuildText)
         .setRequired(true)
     ),
 
-  async execute(interaction, client) {
+  async execute(interaction: any, client: any) {
+    const { Permissions } = require("discord.js");
     const msg = interaction.options.getString("message");
     const channel = interaction.options.getChannel("channel");
 
@@ -29,16 +36,7 @@ module.exports = {
         PermissionsBitField.Flags.Administrator
       )
     ) {
-      // check if the channel is a text channel
-      if (channel.type !== "GUILD_TEXT") {
-        let cmdErr = {
-          description: `You need to select a text channel to use this command.`,
-          color: client.color.yellow,
-        };
-        interaction.reply({ embeds: [cmdErr], ephemeral: true });
-      } else {
-        return channel.send({ content: `${msg}` });
-      }
+      channel.send({ content: `${msg}` });
     } else {
       let cmdDeny = {
         description: `You need to have permission \`MANAGE_MESSAGES\` to use this command.`,

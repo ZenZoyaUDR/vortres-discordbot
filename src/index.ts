@@ -1,11 +1,12 @@
 // Import
-require("dotenv").config();
+const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const env = require("dotenv").config().parsed;
+
+// Constants
 const { loadEvents } = require("./handler/eventHandler");
 const { loadCommands } = require("./handler/commandHandler");
-const { Client, GatewayIntentBits, Collection } = require("discord.js");
-
-// Env
-const { BOT_TOKEN } = process.env;
+const { logger } = require("./helpers/logger");
+const log = logger({ name: "Main" });
 
 // Client
 const client = new Client({
@@ -18,13 +19,15 @@ const client = new Client({
 client.commands = new Collection();
 
 // Helpers
-client.color = require("./helpers/colorHelper");
+client.color = require("./helpers/color");
 
-client.login(BOT_TOKEN).then(() => {
+// Login
+client.login(env.BOT_TOKEN).then(() => {
   console.clear();
-  console.info("|> Starting...");
+  log.info("Starting the Bot...");
 
   // Run functions
+  log.info("Loading Handlers...");
   loadEvents(client);
   loadCommands(client);
 });
