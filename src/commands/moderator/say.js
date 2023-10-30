@@ -1,10 +1,11 @@
-import {
+const {
   SlashCommandBuilder,
   PermissionsBitField,
   ChannelType,
-} from "discord.js";
+} = require("discord.js");
 
 module.exports = {
+  name: "say",
   data: new SlashCommandBuilder()
     .setName("say")
     .setDescription("Say someting as a bot")
@@ -23,8 +24,7 @@ module.exports = {
         .setRequired(true)
     ),
 
-  async execute(interaction: any, client: any) {
-    const { Permissions } = require("discord.js");
+  async execute(interaction, client) {
     const msg = interaction.options.getString("message");
     const channel = interaction.options.getChannel("channel");
 
@@ -37,6 +37,7 @@ module.exports = {
       )
     ) {
       channel.send({ content: `${msg}` });
+      interaction.reply({ content: "Done", ephemeral: true });
     } else {
       let cmdDeny = {
         description: `You need to have permission \`MANAGE_MESSAGES\` to use this command.`,

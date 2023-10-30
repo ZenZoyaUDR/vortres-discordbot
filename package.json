@@ -1,26 +1,24 @@
 {
-  "name": "vortrebot",
-  "version": "5.2.1-SNAPSHOT",
+  "name": "vortresdiscordbot",
+  "version": "6.27.2-SNAPSHOT",
   "description": "Discord Bot for Vortres",
   "main": "src/index.js",
   "scripts": {
-    "start:dev": "ts-node-dev src/index.ts",
-    "start": "ts-node src/index.ts"
+    "start:dev": "nodemon src/index.js --watch",
+    "start": "node src/index.js"
   },
   "author": "ZenZoyaUDR",
   "license": "Apache",
   "dependencies": {
-    "@prisma/client": "^5.3.1",
+    "console-log-colors": "^0.4.0",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
-    "std": "^0.1.40",
-    "undici": "^5.24.0"
+    "moment": "^2.29.4",
+    "moment-duration-format": "^2.3.2",
+    "mysql2": "^3.6.2",
+    "undici": "^5.26.5"
   },
   "devDependencies": {
-    "@types/node": "^20.4.5",
-    "prisma": "^5.3.1",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6"
+    "nodemon": "^3.0.1"
   }
 }

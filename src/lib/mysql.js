@@ -41,11 +41,11 @@ const pool = mysql.createPool({
   //trace:
   //Generates stack traces on Error to include call site of library entrance ("long stack traces").
   //Slight performance penalty for most calls. (Default: true)
-  trace: false,
+  trace: true,
 
   //connectTimeout:
   //The milliseconds before a timeout occurs during the initial connection to the MySQL server. (Default: 10000)
-  connectTimeout: 10000,
+  connectTimeout: 15000,
 
   //waitForConnections:
   //Determines the pool's action when no connections are available and the limit has been reached.
@@ -81,11 +81,10 @@ const pool = mysql.createPool({
 const promisePool = pool.promise();
 
 //Modules:
-//create module "Execute" and export it for use in project files
+//create module "execute" and export it for use in project files
 module.exports = {
-  Execute: async (queryString) => {
+  execute: async (queryString) => {
     try {
-      let m;
       if ((m = await promisePool.execute(`${queryString}`))) {
         return m[0];
       } else return false;

@@ -1,11 +1,12 @@
-import { SlashCommandBuilder } from "discord.js";
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
+  name: "info",
   data: new SlashCommandBuilder()
     .setName("info")
     .setDescription("Get the Information about the Bot"),
 
-  async execute(interaction: any, client: any) {
+  async execute(interaction, client) {
     const sent = await interaction.reply({
       content: "<a:loading:1069476742571511860> Lodading...",
       fetchReply: true,

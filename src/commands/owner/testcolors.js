@@ -1,11 +1,12 @@
-import { SlashCommandBuilder } from "discord.js";
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
+  name: "testcolors",
   data: new SlashCommandBuilder()
     .setName("testcolors")
     .setDescription("For testing"),
 
-  async execute(interaction: any, client: any) {
+  async execute(interaction, client) {
     let Embed1 = {
       description: `1`,
       color: client.color.invis,

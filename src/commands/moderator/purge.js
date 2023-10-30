@@ -1,6 +1,7 @@
-import { SlashCommandBuilder, PermissionsBitField } from "discord.js";
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 
 module.exports = {
+  name: "purge",
   data: new SlashCommandBuilder()
     .setName("purge")
     .setDescription("Delete messages in the channel")
@@ -13,9 +14,8 @@ module.exports = {
         .setMaxValue(100)
     ),
 
-  async execute(interaction: any, client: any) {
+  async execute(interaction, client) {
     const { channel, options } = interaction;
-
     const amount = options.getInteger("amount");
 
     if (
@@ -26,7 +26,7 @@ module.exports = {
         PermissionsBitField.Flags.Administrator
       )
     ) {
-      await channel.bulkDelete(amount, true).then((messages: any) => {
+      await channel.bulkDelete(amount, true).then((messages) => {
         let cmdMsg = {
           description: `Successfully purge \`${messages.size}\` messages from the channel`,
           color: client.color.blue,
