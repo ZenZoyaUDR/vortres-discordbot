@@ -3,14 +3,16 @@ const colors = require("console-log-colors");
 const LogLevels = {
   Debug: 0,
   Info: 1,
-  Warn: 2,
-  Error: 3,
-  Fatal: 4,
+  Success: 2,
+  Warn: 3,
+  Error: 4,
+  Fatal: 5,
 };
 
 const prefixes = new Map([
   [LogLevels.Debug, "DEBUG"],
   [LogLevels.Info, "INFO"],
+  [LogLevels.Success, "SUCCESS"],
   [LogLevels.Warn, "WARN"],
   [LogLevels.Error, "ERROR"],
   [LogLevels.Fatal, "FATAL"],
@@ -21,6 +23,7 @@ const noColor = (str) => str;
 const colorFunctions = new Map([
   [LogLevels.Debug, colors.gray],
   [LogLevels.Info, colors.cyan],
+  [LogLevels.Success, colors.green.bold],
   [LogLevels.Warn, colors.yellow],
   [LogLevels.Error, colors.red],
   [LogLevels.Fatal, colors.red.bold.italic],
@@ -46,6 +49,8 @@ function logger({ logLevel = LogLevels.Info, name } = {}) {
         return console.debug(...logMessage);
       case LogLevels.Info:
         return console.info(...logMessage);
+      case LogLevels.Success:
+        return console.log(...logMessage);
       case LogLevels.Warn:
         return console.warn(...logMessage);
       case LogLevels.Error:
@@ -69,6 +74,10 @@ function logger({ logLevel = LogLevels.Info, name } = {}) {
     log(LogLevels.Info, ...args);
   }
 
+  function success(...args) {
+    log(LogLevels.Success, ...args);
+  }
+
   function warn(...args) {
     log(LogLevels.Warn, ...args);
   }
@@ -86,6 +95,7 @@ function logger({ logLevel = LogLevels.Info, name } = {}) {
     setLevel,
     debug,
     info,
+    success,
     warn,
     error,
     fatal,

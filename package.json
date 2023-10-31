@@ -1,6 +1,6 @@
 {
   "name": "vortresdiscordbot",
-  "version": "6.27.2-SNAPSHOT",
+  "version": "0.0.3-alpha",
   "description": "Discord Bot for Vortres",
   "main": "src/index.js",
   "scripts": {

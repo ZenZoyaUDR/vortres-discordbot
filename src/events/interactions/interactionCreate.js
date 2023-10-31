@@ -9,13 +9,19 @@ module.exports = {
     if (!command) return;
     try {
       await command.execute(interaction, client);
-    } catch (err) {
-      log.error(`An error has occurred: (see blow)\n${err}\n`);
+    } catch (error) {
+      log.error(`An error has occurred: (See blow)\n${error}\n`);
       if (interaction.replied || interaction.deferred) {
-		await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-	  } else {
-	    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-	  }
+        await interaction.followUp({
+          content: "There was an error while executing this command!",
+          ephemeral: true,
+        });
+      } else {
+        await interaction.reply({
+          content: "There was an error while executing this command!",
+          ephemeral: true,
+        });
+      }
     }
   },
 };

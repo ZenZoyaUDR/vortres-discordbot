@@ -5,6 +5,6 @@ module.exports = {
   once: false,
 
   async execute(client) {
-    log.info(`Logged-in as ${client.user.tag}`);
+    log.success(`Logged-in as ${client.user.tag}`);
   },
 };
