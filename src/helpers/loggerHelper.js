@@ -2,15 +2,17 @@ const colors = require("console-log-colors");
 
 const LogLevels = {
   Debug: 0,
-  Info: 1,
-  Success: 2,
-  Warn: 3,
-  Error: 4,
-  Fatal: 5,
+  Shard: 1,
+  Info: 2,
+  Success: 3,
+  Warn: 4,
+  Error: 5,
+  Fatal: 6,
 };
 
 const prefixes = new Map([
   [LogLevels.Debug, "DEBUG"],
+  [LogLevels.Shard, "SHARD"],
   [LogLevels.Info, "INFO"],
   [LogLevels.Success, "SUCCESS"],
   [LogLevels.Warn, "WARN"],
@@ -22,6 +24,7 @@ const noColor = (str) => str;
 
 const colorFunctions = new Map([
   [LogLevels.Debug, colors.gray],
+  [LogLevels.Shard, colors.magenta.bold],
   [LogLevels.Info, colors.cyan],
   [LogLevels.Success, colors.green.bold],
   [LogLevels.Warn, colors.yellow],
@@ -47,10 +50,12 @@ function logger({ logLevel = LogLevels.Info, name } = {}) {
     switch (level) {
       case LogLevels.Debug:
         return console.debug(...logMessage);
+      case LogLevels.Shard:
+        return console.info(...logMessage);
       case LogLevels.Info:
         return console.info(...logMessage);
       case LogLevels.Success:
-        return console.log(...logMessage);
+        return console.info(...logMessage);
       case LogLevels.Warn:
         return console.warn(...logMessage);
       case LogLevels.Error:
@@ -68,6 +73,10 @@ function logger({ logLevel = LogLevels.Info, name } = {}) {
 
   function debug(...args) {
     log(LogLevels.Debug, ...args);
+  }
+
+  function shard(...args) {
+    log(LogLevels.Shard, ...args);
   }
 
   function info(...args) {
@@ -94,6 +103,7 @@ function logger({ logLevel = LogLevels.Info, name } = {}) {
     log,
     setLevel,
     debug,
+    shard,
     info,
     success,
     warn,

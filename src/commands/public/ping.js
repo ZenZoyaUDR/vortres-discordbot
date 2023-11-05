@@ -6,7 +6,7 @@ module.exports = {
   name: "ping",
   data: new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("Get the Bot Statistics"),
+    .setDescription("Get the bot system statistics"),
 
   async execute(interaction, client) {
     const sent = await interaction.reply({
