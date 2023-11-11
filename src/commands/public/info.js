@@ -1,4 +1,12 @@
-const { SlashCommandBuilder } = require("discord.js");
+const {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  SlashCommandBuilder,
+} = require("discord.js");
+const redis = require("../../lib/redis");
+const moment = require("moment");
+require("moment-duration-format");
 
 module.exports = {
   name: "info",
@@ -27,8 +35,32 @@ module.exports = {
         (acc, memberCount) => acc + memberCount,
         0
       );
-      let infoEmbed = {
-        description: `Here is the information`,
+
+      // Create buttons
+      const next1 = new ButtonBuilder()
+        .setCustomId("next")
+        .setLabel("Next page")
+        .setStyle(ButtonStyle.Secondary);
+      const prev1 = new ButtonBuilder()
+        .setCustomId("prev")
+        .setLabel("Previous page")
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(true);
+      const page1 = new ActionRowBuilder().addComponents([prev1, next1]);
+      const next2 = new ButtonBuilder()
+        .setCustomId("next")
+        .setLabel("Next page")
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(true);
+      const prev2 = new ButtonBuilder()
+        .setCustomId("prev")
+        .setLabel("Previous page")
+        .setStyle(ButtonStyle.Secondary);
+      const page2 = new ActionRowBuilder().addComponents([prev2, next2]);
+
+      // Default embed
+      const page1Embed = {
+        description: `Here is the general information`,
         fields: [
           {
             name: `Library Used`,
@@ -42,17 +74,7 @@ module.exports = {
           },
           {
             name: `\u200B`,
-            value: `Guilds & others`,
-            inline: false,
-          },
-          {
-            name: `Total Guilds`,
-            value: `\`${totalGuilds}\` Guilds`,
-            inline: true,
-          },
-          {
-            name: `Total Members`,
-            value: `\`${totalMembers}\` Members`,
+            value: `Guilds & others\n\`${totalGuilds}\` Guilds\n\`${totalMembers}\` Members`,
             inline: false,
           },
           {
@@ -61,14 +83,76 @@ module.exports = {
             inline: true,
           },
           {
-            name: `Shard ID`,
+            name: `Guild Shard ID`,
             value: `\`#${client.shard.ids.join(", ")}\``,
             inline: true,
           },
         ],
         color: client.color.blue,
       };
-      interaction.editReply({ content: "", embeds: [infoEmbed] });
+      interaction.editReply({
+        content: "",
+        embeds: [page1Embed],
+        components: [page1],
+      });
+
+      // Handle the buttons
+      const filter = (i) => i.user.id === interaction.user.id && i.isButton();
+      const collector = interaction.channel.createMessageComponentCollector({
+        filter,
+        time: 60000 * 2,
+      });
+
+      collector.on("collect", async (i) => {
+        if (i.customId === "next") {
+          const ping = Math.floor(
+            sent.createdTimestamp - interaction.createdTimestamp
+          );
+          var duration = moment
+            .duration(client.uptime)
+            .format("`D` [days], `H` [hrs], `m` [mins], `s` [secs]");
+          const page2Embed = {
+            description: `Here is the connection information`,
+            fields: [
+              {
+                name: `PING`,
+                value: `API: \`${Math.round(
+                  client.ws.ping
+                )}ms\`\nBot: \`${ping}ms\``,
+                inline: true,
+              },
+              {
+                name: `Memory`,
+                value: `\`${(process.memoryUsage().rss / 1024 / 1024).toFixed(
+                  2
+                )} MB\``,
+                inline: true,
+              },
+              {
+                name: `CPU`,
+                value: `\`${(process.cpuUsage().system / 1024 / 1024).toFixed(
+                  2
+                )}%\``,
+                inline: true,
+              },
+
+              {
+                name: `Uptime`,
+                value: `${duration}`,
+                inline: false,
+              },
+            ],
+            color: client.color.blue,
+          };
+          i.update({ content: "", embeds: [page2Embed], components: [page2] });
+        } else if (i.customId === "prev") {
+          i.update({
+            content: "",
+            embeds: [page1Embed],
+            components: [page1],
+          });
+        }
+      });
     });
   },
 };

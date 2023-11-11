@@ -1,4 +1,5 @@
 const { ShardingManager } = require("discord.js");
+const colors = require("console-log-colors");
 const { log } = require("./lib/logger");
 const env = require("dotenv");
 env.config();
@@ -6,11 +7,25 @@ env.config();
 console.clear();
 const manager = new ShardingManager("./src/bot.js", {
   token: process.env.BOT_TOKEN,
-  totalShards: 2, // Adjust the number of shards as needed.
+  totalShards: 1, // Adjust the number of shards as needed.
+  respawn: true,
+  mode: "process",
 });
 
 manager.on("shardCreate", (shard) => {
-  log.success(`Launched shard #${shard.id}`);
+  log.info(
+    `${colors.magenta(
+      `Launch shard ${colors.green(
+        `#${shard.id + 1} ${colors.gray(`(#${shard.id})`)}`
+      )}`
+    )}`
+  );
 });
 
-manager.spawn();
+manager.spawn().then(() => {
+  log.success(
+    `${colors.green(
+      `Bot is online! ${colors.grey(`(${manager.totalShards} total shards)`)}`
+    )}`
+  );
+});

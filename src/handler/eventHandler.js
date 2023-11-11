@@ -1,4 +1,3 @@
-const { log } = require("../lib/logger");
 const fs = require("fs");
 
 async function loadEvents(client) {
@@ -28,7 +27,6 @@ async function loadEvents(client) {
       }
     }
   }
-  return log.info(`Loaded ${folders.length} folders with ${eventFiles} events`);
 }
 
 module.exports = { loadEvents };

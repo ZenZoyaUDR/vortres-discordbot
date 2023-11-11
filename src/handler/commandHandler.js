@@ -1,4 +1,3 @@
-const { log } = require("../lib/logger");
 const fs = require("fs");
 
 async function loadCommands(client) {
@@ -18,7 +17,6 @@ async function loadCommands(client) {
     }
   }
   client.application.commands.set(commandsArray);
-  return log.info(`Loaded ${commandsArray.length} commands`);
 }
 
 module.exports = { loadCommands };

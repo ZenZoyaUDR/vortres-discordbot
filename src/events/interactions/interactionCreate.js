@@ -1,3 +1,4 @@
+const colors = require("console-log-colors");
 const { log } = require("../../lib/logger");
 
 module.exports = {
@@ -8,20 +9,20 @@ module.exports = {
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
     try {
+      log.info(
+        `${colors.grey(
+          `[Command: ${colors.blue(
+            `${interaction.commandName}`
+          )} - ${colors.green(`Success`)}] by ${colors.white(
+            `${interaction.user.username}#${interaction.user.discriminator}`
+          )} in ${colors.yellow(
+            `${interaction.guild ? interaction.guild.name : "(DM)"}`
+          )}`
+        )}`
+      );
       await command.execute(interaction, client);
     } catch (error) {
-      log.error(`An error has occurred: (See blow)\n${error}\n(end of report)\n`);
-      if (interaction.replied || interaction.deferred) {
-        await interaction.followUp({
-          content: "There was an error while executing this command!",
-          ephemeral: true,
-        });
-      } else {
-        await interaction.reply({
-          content: "There was an error while executing this command!",
-          ephemeral: true,
-        });
-      }
+      log.error(`An error has occurred: (See blow)\n${error}\n(end of report)`);
     }
   },
 };

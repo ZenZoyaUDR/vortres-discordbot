@@ -17,21 +17,15 @@ module.exports = {
     const ping = Math.floor(
       sent.createdTimestamp - interaction.createdTimestamp
     );
-    const duration = moment
+    var duration = moment
       .duration(client.uptime)
       .format("`D` [days], `H` [hrs], `m` [mins], `s` [secs]");
-    const upvalue = (Date.now() / 1000 - client.uptime / 1000).toFixed(0);
     var pingSeconds = (ping % 60000) / 1000;
     var apiSeconds = (client.ws.ping % 60000) / 1000;
 
     let pingEmbed = {
       description: `Connection data and more!`,
       fields: [
-        {
-          name: `\u200B`,
-          value: `Connection`,
-          inline: false,
-        },
         {
           name: `Bot Latency`,
           value: `\`${ping}ms\` **|** \`${pingSeconds}s\``,
@@ -48,22 +42,20 @@ module.exports = {
           inline: false,
         },
         {
-          name: `Memory Usage`,
-          value: `Usage: \`${(
-            process.memoryUsage().heapUsed /
-            1024 /
-            1024
-          ).toFixed(2)} MB\` **|** Total: \`2 GB\``,
+          name: `CPU Usage`,
+          value: `\`${(process.cpuUsage().system / 1024 / 1024).toFixed(2)}%\``,
+          inline: true,
+        },
+        {
+          name: `RAM Usage`,
+          value: `\`${(process.memoryUsage().rss / 1024 / 1024).toFixed(
+            2
+          )}MB\``,
           inline: true,
         },
         {
           name: `Uptime`,
           value: `${duration}`,
-          inline: false,
-        },
-        {
-          name: `Up Since`,
-          value: `<t:${upvalue}>`,
           inline: false,
         },
       ],

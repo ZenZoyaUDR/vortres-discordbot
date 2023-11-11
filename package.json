@@ -13,9 +13,11 @@
     "console-log-colors": "^0.4.0",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
+    "ioredis": "^5.3.2",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "mysql2": "^3.6.2",
+    "os-utils": "^0.0.14",
     "undici": "^5.26.5"
   },
   "devDependencies": {
