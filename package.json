@@ -18,7 +18,7 @@
     "moment-duration-format": "^2.3.2",
     "mysql2": "^3.6.2",
     "os-utils": "^0.0.14",
-    "undici": "^5.26.5"
+    "undici": "^5.28.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
